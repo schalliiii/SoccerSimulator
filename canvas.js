@@ -25,9 +25,11 @@ class player {
       ctx.stroke();
       ctx.closePath(); 
   }
+
   isAt(ballX, ballY){
       return Math.abs(this.x - ballX) < 1 ? (Math.abs(this.y - ballY) < 1 ? true : false) : false;
   }
+  
   move(ballX, ballY){
     var bX = ballX,
         bY = ballY;
