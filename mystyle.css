@@ -1,3 +1,32 @@
 #pitch {
     border: solid 10px #060;
   }
+
+  .playerButton{
+    margin-bottom: 15px;
+  }
+
+#teamWrapper{
+  display: flex;
+}
+
+#formsH{
+  margin-right: 20 px;
+}
+
+#formsG{
+  margin-right: 20px;
+}
+  
+#homeTeam{
+  margin-right: 20px;
+}
+
+#guestTeam{
+  margin-right: 20px;
+}
+
+#scoreboard{
+  position: center;
+  margin-bottom: 20px;
+}
