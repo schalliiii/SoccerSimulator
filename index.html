@@ -18,40 +18,22 @@
     </div>
     <div id="teamWrapper">
     <div id="homeTeam">
-        <div class="playerButton homePlayer"><button type="button" id="neuer">Neuer 1</button></div>
-        <div class="playerButton homePlayer"><button type="button" id="ruediger">Ruediger 2</button></div>
-        <div class="playerButton homePlayer"><button type="button" id="hummels">Hummels 5</button></div>
-        <div class="playerButton homePlayer"><button type="button" id="ginter">Ginter 4</button></div>
-        <div class="playerButton homePlayer"><button type="button" id="gosens">Gosens 20</button></div>
-        <div class="playerButton homePlayer"><button type="button" id="kroos">Kroos 8</button></div>
-        <div class="playerButton homePlayer"><button type="button" id="guendogan">Guedogan 21</button></div>
-        <div class="playerButton homePlayer"><button type="button" id="kimmich">Kimmich 6</button></div>
-        <div class="playerButton homePlayer"><button type="button" id="harvertz">Harvertz 7</button></div>
-        <div class="playerButton homePlayer"><button type="button" id="mueller">Mueller 25</button></div>
-        <div class="playerButton homePlayer"><button type="button" id="gnabry">Gnabry 10</button></div>
-        <div class="playerButton homePlayer"><button type="button" id="halstenberg">Halstenberg 3</button></div>
-        <div class="playerButton homePlayer"><button type="button" id="volland">Volland 9</button></div>
-        <div class="playerButton homePlayer"><button type="button" id="goretzka">Goretzka 18</button></div>        
-        <div class="playerButton homePlayer"><button type="button" id="trapp">Trapp 22</button></div>        
-        <div class="playerButton homePlayer"><button type="button" id="werner">Werner 9</button></div>        
+        <select id="selectHomePlayer">      
+        </select>
+        <button id="changeAttributesH">Change Attributes</button>
+        <button id="subPlayerH" onclick="showHomeSub()">Substitute</button>
     </div>
 
     <div id="formsH">
         <div>
-            <label>Speed</label>
-            <input type="number" id="inputSpeedH"/>
+            <label id="speedH" >Speed</label>
+            <input type="number" id="inputSpeedH" />
         </div>
         <div>
-            <label>Accuracy</label>
-            <input type="number" id="accuracyH"/>
+            <label id="accuracyH" >Accuracy</label>
+            <input type="number" id="accuracyH" />
         </div>
-        <div>
-            <label>Substitute in</label>
-            <input type="number" id="subInH"/>
-        </div>        <div>
-            <label>Substitute out</label>
-            <input type="number" id="subOutH"/>
-        </div>        <div>
+            <div>
             <label>Trickot Color Home</label>
             <select id="trickotColorH" size="5">
                 <option>Blue</option>
@@ -61,23 +43,22 @@
               </select>
         </div>
     </div>
+    <div id="subHome">
+        <select id="selectHomeSub">    
+        </select>
+    </div>
+    <div id="confirmSubH">
+        <button id="confirmSubHbutton" onclick="confirmSubHome()">Confirm</button>
+    </div>
 
     <div id="formsG">
         <div>
-            <label>Speed</label>
+            <label id="speedG" >Speed</label>
             <input type="number" id="inputSpeedG"/>
         </div>
         <div>
-            <label>Accuracy</label>
-            <input type="number" id="accuracyG"/>
-        </div>
-        <div>
-            <label>Substitute in</label>
-            <input type="number" id="subInG"/>
-        </div>
-        <div>
-            <label>Substitute out</label>
-            <input type="number" id="subOutG"/>
+            <label id="accuracyG" >Accuracy</label>
+            <input type="number" id="accuracyG" />
         </div>
         <div>
             <label>Trickot Color Guest</label>
@@ -90,22 +71,17 @@
         </div>
     </div>
     <div id="guestTeam">
-        <div class="playerButton guestPlayer"><button type="button" id="patricio">Patricio 1</button></div>
-        <div class="playerButton guestPlayer"><button type="button" id="semedo">Semedo 2</button></div>
-        <div class="playerButton guestPlayer"><button type="button" id="pepe">Pepe 3</button></div>
-        <div class="playerButton guestPlayer"><button type="button" id="dias">Dias 4</button></div>
-        <div class="playerButton guestPlayer"><button type="button" id="guerreiro">Guerreiro 5</button></div>
-        <div class="playerButton guestPlayer"><button type="button" id="pereira">Pereira 13</button></div>
-        <div class="playerButton guestPlayer"><button type="button" id="silva">Silva 10</button></div>
-        <div class="playerButton guestPlayer"><button type="button" id="fernandes">Fernandes 11</button></div>
-        <div class="playerButton guestPlayer"><button type="button" id="carvalho">Carvalho 14</button></div>
-        <div class="playerButton guestPlayer"><button type="button" id="jota">Jota 21</button></div>
-        <div class="playerButton guestPlayer"><button type="button" id="ronaldo">Ronaldo 7</button></div>
-        <div class="playerButton guestPlayer"><button type="button" id="goncalves">Goncalves 19</button></div>
-        <div class="playerButton guestPlayer"><button type="button" id="lopes">Lopes 12</button></div>
-        <div class="playerButton guestPlayer"><button type="button" id="dalot">Dalot 20</button></div>        
-        <div class="playerButton guestPlayer"><button type="button" id="sanches">Sanches 16</button></div>        
-        <div class="playerButton guestPlayer"><button type="button" id="neves">Neves 22</button></div>        
+        <select id="selectGuestPlayer">    
+        </select>
+        <button id="changeAttributesG">Change Attributes</button>
+        <button id="subPlayerG" onclick="showGuestSub()">Substitute</button>
+    </div>
+    <div id="subGuest">
+        <select id="selectGuestSub">    
+        </select>
+    </div>
+    <div id="confirmSubG">
+        <button id="confirmSubGbutton" onclick="confirmSubGuest()">Confirm</button>
     </div>
     </div>
     <span id="debug"></span>
