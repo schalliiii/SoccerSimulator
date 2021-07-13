@@ -15,6 +15,10 @@
         <text id="homeGoals">0</text>
         <text id="dash">-</text>
         <text id="guestGoals">0</text>
+        <br>
+        <text id="possessionPlayer">Possession: </text>
+        <text id="possession">Gnabry</text>
+
     </div>
     <div id="teamWrapper">
     <div id="homeTeam">
@@ -22,7 +26,7 @@
         <select id="selectHomePlayer">      
         </select>
             <label>Trickot Color</label>
-            <select id="trickotColorH">
+            <select id="trickotColorH" onchange="changeTrickotH()">
                 <option>Blue</option>
                 <option>Green</option>
                 <option>Purple</option>
@@ -75,7 +79,7 @@
         <select id="selectGuestPlayer">    
         </select>
         <label>Trickot Color</label>
-        <select id="trickotColorG">
+        <select id="trickotColorG" onchange="changeTrickotG()">
             <option>Red</option>
             <option>Green</option>
             <option>Purple</option>

@@ -18,6 +18,8 @@ var speedH = document.getElementById("speedSlideH");
 var speedG = document.getElementById("speedSlideG");
 var accuracyH = document.getElementById("accuracySlideH");
 var accuracyG = document.getElementById("accuracySlideG");
+var trickotH = document.getElementById("trickotColorH");
+var trickotG = document.getElementById("trickotColorG");
 
 
 
@@ -27,6 +29,56 @@ selectHomeSub.style.display = "none";
 selectGuestSub.style.display = "none";
 confirmSubH.style.display = "none";
 confirmSubG.style.display = "none";
+
+function changeTrickotH() {
+
+  var players = activeH.concat(substitutesH);
+  for(var i = 0; i < players.length; i++){
+    switch(trickotH.value){
+      case "Black":
+        players[i].trickotColor = "#000000";
+        break;
+      case "Blue":
+        players[i].trickotColor = "##0000ff";
+        break;
+      case "Green":
+        players[i].trickotColor = "##00ff00";
+        break;
+      case "Purple":
+        players[i].trickotColor = "#a020f0";
+        break;
+      case "Red":
+        players[i].trickotColor = "##ff0000";
+        break;
+    }
+  }
+  redraw();
+}
+
+function changeTrickotG() {
+
+  var players = activeG.concat(substitutesG);
+  for(var i = 0; i < players.length; i++){
+    switch(trickotG.value){
+      case "Black":
+        players[i].trickotColor = "#000000";
+        break;
+      case "Blue":
+        players[i].trickotColor = "##0000ff";
+        break;
+      case "Green":
+        players[i].trickotColor = "##00ff00";
+        break;
+      case "Purple":
+        players[i].trickotColor = "#a020f0";
+        break;
+      case "Red":
+        players[i].trickotColor = "##ff0000";
+        break;
+    }
+  }
+  redraw();
+}
 
 function cancelSubHome() {
   confirmSubH.style.display = "none";
@@ -79,10 +131,28 @@ function confirmAttributesG() {
 }
 
 function changeAttributesH(){
+  var name = homePlayerSelect.value;
+  var player;
+  for(var i = 0; i < activeH.length; i++){
+    if(activeH[i].name == name){
+      player = activeH[i];
+    }
+  }
+  accuracyH.value = player.accuracy;
+  speedH.value = play.speed;
   formsH.style.display = "block";
 }
 
 function changeAttributesG(){
+  var name = guestPlayerSelect.value;
+  var player;
+  for(var i = 0; i < activeH.length; i++){
+    if(activeG[i].name == name){
+      player = activeG[i];
+    }
+  }
+  accuracyG.value = player.accuracy;
+  speedG.value = play.speed;
   formsG.style.display = "block";
 }
 
@@ -403,7 +473,7 @@ class ball{
 
     draw(ctx) {
       ctx.beginPath();
-      ctx.arc(this.x, this.y, 3, 0, 2*Math.PI, false);
+      ctx.arc(this.x, this.y, 4, 0, 2*Math.PI, false);
       ctx.fillStyle = "#FFFF00";
       ctx.fill();
       ctx.strokeStyle = "#000";
