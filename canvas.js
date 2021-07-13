@@ -14,6 +14,11 @@ var subListH = document.getElementById("selectHomeSub");
 var subListG = document.getElementById("selectGuestSub");
 var confirmSubH = document.getElementById("confirmSubH");
 var confirmSubG = document.getElementById("confirmSubG");
+var speedH = document.getElementById("speedSlideH");
+var speedG = document.getElementById("speedSlideG");
+var accuracyH = document.getElementById("accuracySlideH");
+var accuracyG = document.getElementById("accuracySlideG");
+
 
 
 formsH.style.display = "none";
@@ -22,6 +27,64 @@ selectHomeSub.style.display = "none";
 selectGuestSub.style.display = "none";
 confirmSubH.style.display = "none";
 confirmSubG.style.display = "none";
+
+function cancelSubHome() {
+  confirmSubH.style.display = "none";
+  subListH.style.display = "none";
+}
+
+function cancelSubGuest() {
+  confirmSubG.style.display = "none";
+  subListG.style.display = "none";
+}
+
+function cancelAttributesH() {
+  formsH.style.display = "none";
+  speedH.value = 0;
+  accuracyH.value = 0;
+}
+
+function cancelAttributesG() {
+  formsG.style.display = "none";
+  speedG.value = 0;
+  accuracyG.value = 0;
+}
+
+function confirmAttributesH() {
+  var speed = speedH.value;
+  var accuracy = accuracyH.value;
+  var homePlayer;
+  for(var i = 0; i < activeH.length; i++){
+    if(activeH[i].name == homePlayerSelect.value){
+      homePlayer = activeH[i];
+    }
+  } 
+  homePlayer.speed = parseInt(speed);
+  homePlayer.accuracy = parseInt(accuracy);
+  formsH.style.display = "none";
+}
+
+function confirmAttributesG() {
+  var speed = speedG.value;
+  var accuracy = accuracyG.value;
+  var guestPlayer;
+  for(var i = 0; i < activeG.length; i++){
+    if(activeG[i].name == guestPlayerSelect.value){
+      guestPlayer = activeG[i];
+    }
+  } 
+  guestPlayer.accuracy = parseInt(accuracy);
+  guestPlayer.speed = parseInt(speed);
+  formsG.style.display = "none";
+}
+
+function changeAttributesH(){
+  formsH.style.display = "block";
+}
+
+function changeAttributesG(){
+  formsG.style.display = "block";
+}
 
 function redraw() {
   ctx.clearRect(0, 0, innerWidth, innerHeight);

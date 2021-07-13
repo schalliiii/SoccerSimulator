@@ -18,29 +18,33 @@
     </div>
     <div id="teamWrapper">
     <div id="homeTeam">
+        <label>Player</label>
         <select id="selectHomePlayer">      
         </select>
-        <button id="changeAttributesH">Change Attributes</button>
+            <label>Trickot Color</label>
+            <select id="trickotColorH">
+                <option>Blue</option>
+                <option>Green</option>
+                <option>Purple</option>
+                <option>Black</option>
+                <option>Red</option>
+              </select>
+        <button id="changeAttributesH" onclick="changeAttributesH()">Change Attributes</button>
         <button id="subPlayerH" onclick="showHomeSub()">Substitute</button>
     </div>
 
     <div id="formsH">
         <div>
-            <label id="speedH" >Speed</label>
-            <input type="number" id="inputSpeedH" />
-        </div>
+            <label>Speed</label>
+            <input type="range" min="0" max="100" value="0" class="slider" id="speedSlideH">
+          </div>
         <div>
-            <label id="accuracyH" >Accuracy</label>
-            <input type="number" id="accuracyH" />
-        </div>
-            <div>
-            <label>Trickot Color Home</label>
-            <select id="trickotColorH" size="5">
-                <option>Blue</option>
-                <option>Green</option>
-                <option>Purple</option>
-                <option>Black</option>
-              </select>
+            <label>Accuracy</label>
+            <input type="range" min="0" max="100" value="0" class="slider" id="accuracySlideH">
+          </div>
+          <div>
+            <button onclick="confirmAttributesH()">Confirm</button>
+            <button onclick="cancelAttributesH()">Cancel</button>
         </div>
     </div>
     <div id="subHome">
@@ -49,31 +53,36 @@
     </div>
     <div id="confirmSubH">
         <button id="confirmSubHbutton" onclick="confirmSubHome()">Confirm</button>
+        <button id="cancelSubHbutton" onclick="cancelSubHome()">Cancel</button>
     </div>
 
     <div id="formsG">
         <div>
-            <label id="speedG" >Speed</label>
-            <input type="number" id="inputSpeedG"/>
-        </div>
+            <label>Speed</label>
+            <input type="range" min="0" max="100" value="0" class="slider" id="speedSlideG">
+          </div>
         <div>
-            <label id="accuracyG" >Accuracy</label>
-            <input type="number" id="accuracyG" />
-        </div>
-        <div>
-            <label>Trickot Color Guest</label>
-            <select id="trickotColorG" size="5">
-                <option>Blue</option>
-                <option>Green</option>
-                <option>Purple</option>
-                <option>Black</option>
-              </select>
-        </div>
+            <label>Accuracy</label>
+            <input type="range" min="0" max="100" value="0" class="slider" id="accuracySlideG">
+          </div>
+          <div>
+              <button onclick="confirmAttributesG()">Confirm</button>
+              <button onclick="cancelAttributesG()">Cancel</button>
+          </div>
     </div>
     <div id="guestTeam">
+        <label>Player</label>
         <select id="selectGuestPlayer">    
         </select>
-        <button id="changeAttributesG">Change Attributes</button>
+        <label>Trickot Color</label>
+        <select id="trickotColorG">
+            <option>Red</option>
+            <option>Green</option>
+            <option>Purple</option>
+            <option>Black</option>
+            <option>Blue</option>
+          </select>
+        <button id="changeAttributesG" onclick="changeAttributesG()">Change Attributes</button>
         <button id="subPlayerG" onclick="showGuestSub()">Substitute</button>
     </div>
     <div id="subGuest">
@@ -82,6 +91,7 @@
     </div>
     <div id="confirmSubG">
         <button id="confirmSubGbutton" onclick="confirmSubGuest()">Confirm</button>
+        <button id="cancelSubGbutton" onclick="cancelubGuest()">Cancel</button>
     </div>
     </div>
     <span id="debug"></span>
