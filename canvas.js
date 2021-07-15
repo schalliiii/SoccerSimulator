@@ -1,9 +1,5 @@
 var canvas = document.getElementById('pitch');
 var ctx = canvas.getContext('2d');
-var power = 0.5;
-var anyPossession = false;
-var aimX = 605;
-var aimY = 185;
 var homePlayerSelect = document.getElementById('selectHomePlayer');
 var guestPlayerSelect = document.getElementById('selectGuestPlayer');
 var formsH = document.getElementById("formsH");
@@ -22,6 +18,7 @@ var trickotH = document.getElementById("trickotColorH");
 var trickotG = document.getElementById("trickotColorG");
 var possession = document.getElementById("possession");
 var phase = 0;
+var mousPos;
 
 
 
@@ -566,8 +563,8 @@ function getMousePosition(canvas, event) {
 
 
 canvas.addEventListener("mousedown", function (e) {
-  var mousePos = getMousePosition(canvas, e);
-  ficken(mousePos);
+  mousePos = getMousePosition(canvas, e);
+  ficken();
 });
 
 function playerAnimation() {
@@ -612,29 +609,30 @@ function playerMovement(player) {
   }
 }
 
-function ballAnimation(mousePos) {
+function ballAnimation() {
   for (var i = 0; i < activeH.length; i++) {
     if (activeH[i].possession == true) {
       var deviatedPos = ballDeviation(activeH[i], mousePos);
-      while (true) {
+
         if (ballMovement(activeH[i], deviatedPos)) {
           return;
         }
-      }
+      
     }
   };
 
   for (var i = 0; i < activeG.length; i++) {
     if (activeG[i].possession == true) {
       var deviatedPos = ballDeviation(activeG[i], mousePos);
-      while (true) {
+
         if (ballMovement(activeG[i], deviatedPos)) {
           return;
         }
 
-      }
+      
     };
   }
+  requestAnimationFrame(ballAnimation);
 }
 
 function ballMovement(player, deviatedPos) {
@@ -647,7 +645,6 @@ function ballMovement(player, deviatedPos) {
     player.possession = false;
     return true;
   }
-  //requestAnimationFrame(ballMovement.bind(null, player, deviatedPos));
 }
 
 function ballDeviation(player, mousePos) {
@@ -656,12 +653,12 @@ function ballDeviation(player, mousePos) {
   return mousePos;
 }
 
-function ficken(mousePos) {
+function ficken() {
   if (phase == 0) {
     playerAnimation();
     phase += 1;
   } else {
-    ballAnimation(mousePos);
+    ballAnimation();
     phase += 1;
   }
 
