@@ -168,6 +168,8 @@ function redraw() {
   field.draw(ctx);
   playball.draw(ctx);
   activePlayers.forEach(element => { element.draw(ctx); });
+  assistantTop.draw(ctx);
+  assistantBot.draw(ctx);
 }
 
 function emptySelect(box) {
@@ -422,19 +424,6 @@ class ball {
     ctx.stroke();
     ctx.closePath();
   }
-  getX() {
-    return this.x;
-  }
-  getY() {
-    return this.y;
-  }
-  setX(x) {
-    this.x = x;
-  }
-  setY(y) {
-    this.y = y;
-  }
-
 }
 
 class referee {
@@ -442,31 +431,26 @@ class referee {
     this.x = startingX;
     this.y = startingY;
   }
-
-  move() {
-  }
-  getX() {
-    return this.x;
-  }
-  getY() {
-    return this.y;
-  }
 }
 
 class assistant {
-  constructor(speed, startX, startY) {
+  constructor(speed, startingX, startingY) {
+    this.speed = speed;
+    this.startingX = startingX;
+    this.startingY = startingY;
     this.x = startingX;
     this.y = startingY;
+
+  }
+  draw(ctx){
+    ctx.beginPath();
+    ctx.strokeStyle = "#FFFF00";
+    ctx.arc(this.x, this.y, 3, 0, 2 * Math.PI, false);
+    ctx.arc(this.x, this.y, 3, 0, 2 * Math.PI, false);
+    ctx.stroke();
+    ctx.closePath();
   }
 
-  move() {
-  }
-  getX() {
-    return this.x;
-  }
-  getY() {
-    return this.y;
-  }
 }
 var field = new pitch();
 var playball = new ball();
@@ -503,12 +487,23 @@ var Dalot = new player(20, "guest", 100, 140, 380, 100, false, "#FF0000", "Dalot
 var Sanches = new player(16, "guest", 100, 140, 380, 100, false, "#FF0000", "Sanches");
 var Neves = new player(18, "guest", 100, 140, 380, 100, false, "#FF0000", "Neves");
 
+var assistantTop = new assistant(100, canvas.width / 2, 0.5);
+var assistantBot = new assistant(100, canvas.width / 2, canvas.height-0.5);
+
 var activePlayers = [Neuer, Ruediger, Hummels, Ginter, Gosens, Kroos, Guendogan, Kimmich, Harvertz, Mueller, Gnabry, Patricio, Semedo, Pepe, Dias, Guerreiro, Pereira, Silva, Fernandes, Carvalho, Jota, Ronaldo];
 var activeH = [Neuer, Ruediger, Hummels, Ginter, Gosens, Kroos, Guendogan, Kimmich, Harvertz, Mueller, Gnabry];
 var activeG = [Patricio, Semedo, Pepe, Dias, Guerreiro, Pereira, Silva, Fernandes, Carvalho, Jota, Ronaldo];
 var substitutesH = [Halstenberg, Volland, Goretzka, Trapp, Werner];
 var substitutesG = [Goncalves, Lopes, Dalot, Sanches, Neves];
 
+function assistantMovement(assistant) {
+  if(assistant.x > playball.x){
+    assistant.x -= assistant.speed / 100;
+  }
+  if(assistant.x < playball.x){
+    assistant.x += assistant.speed / 100;
+  }
+}
 
 function fillActiveHome() {
   for (var i = 0; i < activeH.length; i++) {
@@ -573,6 +568,13 @@ canvas.addEventListener("mousedown", function (e) {
   ficken();
 });
 
+function assistantAnimation() {
+  assistantMovement(assistantTop);
+  assistantMovement(assistantBot);
+  redraw();
+  requestAnimationFrame(assistantAnimation);
+}
+
 function playerAnimation() {
   for (var i = 0; i < activeH.length; i++) {
     if (playerMovement(activeH[i])) {
@@ -596,6 +598,7 @@ function reset() {
   playball.x = canvas.width / 2;
   playball.y = canvas.height / 2;
   deviatedBool = false;
+  assistantBot.x
   redraw();
 }
 
@@ -700,6 +703,7 @@ function ballDeviation(player, mousePos){
 function ficken() {
   if (phase == 0) {
     playerAnimation();
+    assistantAnimation();
     phase += 1;
   } else {
     ballAnimation();
@@ -714,6 +718,8 @@ function ficken() {
   field.draw(ctx);
   playball.draw(ctx);
   activePlayers.forEach(element => { element.draw(ctx); });
+  assistantTop.draw(ctx);
+  assistantBot.draw(ctx);
 
 })();
 
