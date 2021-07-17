@@ -1,29 +1,30 @@
-var canvas = document.getElementById('pitch');
-var ctx = canvas.getContext('2d');
-var homePlayerSelect = document.getElementById('selectHomePlayer');
-var guestPlayerSelect = document.getElementById('selectGuestPlayer');
-var formsH = document.getElementById("formsH");
-var formsG = document.getElementById("formsG");
-var selectHomeSub = document.getElementById("selectHomeSub");
-var selectGuestSub = document.getElementById("selectGuestSub");
-var subListH = document.getElementById("selectHomeSub");
-var subListG = document.getElementById("selectGuestSub");
-var confirmSubH = document.getElementById("confirmSubH");
-var confirmSubG = document.getElementById("confirmSubG");
-var speedH = document.getElementById("speedSlideH");
-var speedG = document.getElementById("speedSlideG");
-var accuracyH = document.getElementById("accuracySlideH");
-var accuracyG = document.getElementById("accuracySlideG");
-var trickotH = document.getElementById("trickotColorH");
-var trickotG = document.getElementById("trickotColorG");
-var possession = document.getElementById("possession");
-var phase = 0;
-var mousPos;
-var deviatedBool = false;
-var deviatedPos;
-var goalsHome = 0;
-var goalsGuest = 0;
-var goalScored = false;
+const canvas = <HTMLCanvasElement> document.getElementById('pitch');
+const ctx = canvas.getContext('2d');
+const homePlayerSelect = <any>document.getElementById('selectHomePlayer');
+const guestPlayerSelect= <any>document.getElementById('selectGuestPlayer');
+const formsH = <HTMLElement>document.getElementById("formsH");
+const formsG = <HTMLElement>document.getElementById("formsG");
+const selectHomeSub = <HTMLInputElement>document.getElementById("selectHomeSub");
+const selectGuestSub = <HTMLInputElement>document.getElementById("selectGuestSub");
+const subListH = <HTMLInputElement>document.getElementById("selectHomeSub");
+const subListG = <HTMLInputElement>document.getElementById("selectGuestSub");
+const confirmSubH = <HTMLElement>document.getElementById("confirmSubH");
+const confirmSubG = <HTMLElement>document.getElementById("confirmSubG");
+const speedH = <any>document.getElementById("speedSlideH");
+const speedG = <any>document.getElementById("speedSlideG");
+const accuracyH = <any>document.getElementById("accuracySlideH");
+const accuracyG = <any>document.getElementById("accuracySlideG");
+const trickotH = <HTMLInputElement>document.getElementById("trickotColorH");
+const trickotG = <HTMLInputElement>document.getElementById("trickotColorG");
+const possession = <HTMLElement>document.getElementById("possession");
+let phase: number = 0;
+let mousePos: Array<number>;
+let deviatedBool: boolean = false;
+let deviatedPos: Array<number>;
+let goalsHome: number = 0;
+let goalsGuest: number = 0;
+let goalScored: boolean = false;
+let canvasHeight: number = canvas.height;
 
 
 formsH.style.display = "none";
@@ -35,8 +36,8 @@ confirmSubG.style.display = "none";
 
 function changeTrickotH() {
 
-  var players = activeH.concat(substitutesH);
-  for (var i = 0; i < players.length; i++) {
+  let players: Array<any> = activeH.concat(substitutesH);
+  for (let i = 0; i < players.length; i++) {
     switch (trickotH.value) {
       case "Black":
         players[i].trickotColor = "#000000";
@@ -60,8 +61,8 @@ function changeTrickotH() {
 
 function changeTrickotG() {
 
-  var players = activeG.concat(substitutesG);
-  for (var i = 0; i < players.length; i++) {
+  let players: Array<any> = activeG.concat(substitutesG);
+  for (let i = 0; i < players.length; i++) {
     switch (trickotG.value) {
       case "Black":
         players[i].trickotColor = "#000000";
@@ -106,10 +107,10 @@ function cancelAttributesG() {
 }
 
 function confirmAttributesH() {
-  var speed = speedH.value;
-  var accuracy = accuracyH.value;
-  var homePlayer;
-  for (var i = 0; i < activeH.length; i++) {
+  let speed = speedH.value;
+  let accuracy = accuracyH.value;
+  let homePlayer;
+  for (let i = 0; i < activeH.length; i++) {
     if (activeH[i].name == homePlayerSelect.value) {
       homePlayer = activeH[i];
     }
@@ -120,10 +121,10 @@ function confirmAttributesH() {
 }
 
 function confirmAttributesG() {
-  var speed = speedG.value;
-  var accuracy = accuracyG.value;
-  var guestPlayer;
-  for (var i = 0; i < activeG.length; i++) {
+  let speed = speedG.value;
+  let accuracy = accuracyG.value;
+  let guestPlayer;
+  for (let i = 0; i < activeG.length; i++) {
     if (activeG[i].name == guestPlayerSelect.value) {
       guestPlayer = activeG[i];
     }
@@ -134,9 +135,9 @@ function confirmAttributesG() {
 }
 
 function changeAttributesH() {
-  var name = homePlayerSelect.value;
-  var player;
-  for (var i = 0; i < activeH.length; i++) {
+  let name = homePlayerSelect.value;
+  let player;
+  for (let i = 0; i < activeH.length; i++) {
     if (activeH[i].name == name) {
       player = activeH[i];
     }
@@ -147,15 +148,15 @@ function changeAttributesH() {
 }
 
 function changeAttributesG() {
-  var name = guestPlayerSelect.value;
-  var player;
-  for (var i = 0; i < activeH.length; i++) {
+  let name = guestPlayerSelect.value;
+  let player;
+  for (let i = 0; i < activeH.length; i++) {
     if (activeG[i].name == name) {
       player = activeG[i];
     }
   }
   accuracyG.value = player.accuracy;
-  speedG.value = play.speed;
+  speedG.value = player.speed;
   formsG.style.display = "block";
 }
 
@@ -170,8 +171,8 @@ function redraw() {
 }
 
 function emptySelect(box) {
-  var length = box.options.length;
-  for (i = length - 1; i >= 0; i--) {
+  let length = box.options.length;
+  for (let i = length - 1; i >= 0; i--) {
     box.options[i] = null;
   }
 }
@@ -187,24 +188,24 @@ function showGuestSub() {
 }
 
 function confirmSubHome() {
-  var e = document.getElementById("selectHomePlayer").value;
-  var f = document.getElementById("selectHomeSub").value;
-  var x;
-  var y;
-  for (var i = 0; i < activeH.length; i++) {
+  let e: any = homePlayerSelect.value;
+  let f: any = selectHomeSub.value;
+  let x: number;
+  let y: number;
+  for (let i = 0; i < activeH.length; i++) {
     if (activeH[i].name == e) {
       substitutesH.push(activeH[i]);
       x = activeH[i].x;
       y = activeH[i].y;
       activeH.splice(i, 1);
-      for (var k = 0; k < activePlayers.length; k++) {
+      for (let k = 0; k < activePlayers.length; k++) {
         if (activePlayers[k].name == e) {
           activePlayers.splice(k, 1);
         }
       }
     }
   }
-  for (var i = 0; i < substitutesH.length; i++) {
+  for (let i = 0; i < substitutesH.length; i++) {
     if (substitutesH[i].name == f) {
       substitutesH[i].x = x;
       substitutesH[i].y = y;
@@ -223,24 +224,24 @@ function confirmSubHome() {
 }
 
 function confirmSubGuest() {
-  var e = document.getElementById("selectGuestPlayer").value;
-  var f = document.getElementById("selectGuestSub").value;
-  var x;
-  var y;
-  for (var i = 0; i < activeG.length; i++) {
+  let e: any = guestPlayerSelect.value;
+  let f: any = selectGuestSub.value;
+  let x: number;
+  let y: number;
+  for (let i = 0; i < activeG.length; i++) {
     if (activeG[i].name == e) {
       substitutesG.push(activeG[i]);
       x = activeG[i].x;
       y = activeG[i].y;
       activeG.splice(i, 1);
-      for (var k = 0; k < activePlayers.length; k++) {
+      for (let k = 0; k < activePlayers.length; k++) {
         if (activePlayers[k].name == e) {
           activePlayers.splice(k, 1);
         }
       }
     }
   }
-  for (var i = 0; i < substitutesG.length; i++) {
+  for (let i = 0; i < substitutesG.length; i++) {
     if (substitutesG[i].name == f) {
       substitutesG[i].x = x;
       substitutesG[i].y = y;
@@ -378,6 +379,17 @@ class pitch {
 
 }
 class player {
+  number: number;
+  team: string;
+  speed: number;
+  startingX: number;
+  startingY: number;
+  accuracy: number;
+  x: number;
+  y: number;
+  possession: boolean;
+  trickotColor: string;
+  name: string;
   constructor(number, team, speed, startingX, startingY, accuracy, possession, trickotColor, name) {
     this.number = number;
     this.team = team;
@@ -406,6 +418,8 @@ class player {
 }
 
 class ball {
+  x: number;
+  y: number;
   constructor() {
     this.x = canvas.width / 2;
     this.y = canvas.height / 2;
@@ -424,6 +438,9 @@ class ball {
 }
 
 class referee {
+  speed: number;
+  x: number;
+  y: number;
   constructor(speed, startingX, startingY) {
     this.speed = speed;
     this.x = startingX;
@@ -441,6 +458,11 @@ class referee {
 }
 
 class assistant {
+  speed: number;
+  startingX: number;
+  startingY: number;
+  x: number;
+  y: number;
   constructor(speed, startingX, startingY) {
     this.speed = speed;
     this.startingX = startingX;
@@ -459,50 +481,50 @@ class assistant {
   }
 
 }
-var field = new pitch();
-var playball = new ball();
-var Neuer = new player(1, "home", 150, 40, canvas.height/2, 100, false, "#0047AB", "Neuer");
-var Ruediger = new player(2, "home", 150, 190, 260, 100, false, "#0047AB", "Ruediger");
-var Hummels = new player(5, "home", 150, 260, 60, 100, false, "#0047AB", "Hummels");
-var Ginter = new player(4, "home", 150, 285, 250, 100, false, "#0047AB", "Ginter");
-var Gosens = new player(20, "home", 150, 280, 440, 100, false, "#0047AB", "Gosens");
-var Kroos = new player(8, "home", 150, 500, 120, 100, false, "#0047AB", "Kroos");
-var Guendogan = new player(21, "home", 150, 530, 460, 100, false, "#0047AB", "Guendogan");
-var Kimmich = new player(6, "home", 150, 660, 85, 100, false, "#0047AB", "Kimmich");
-var Harvertz = new player(7, "home", 150, 610, 260, 100, false, "#0047AB", "Harvertz");
-var Mueller = new player(25, "home", 150, 710, 180, 100, false, "#0047AB", "Mueller");
-var Gnabry = new player(10, "home", 150, canvas.width / 2 + 10, canvas.height / 2 + 10, 100, false, "#0047AB", "Gnabry");
-var Halstenberg = new player(3, "home", 100, canvas.width / 2 + 10, canvas.height / 2 + 10, 100, false, "#0047AB", "Halstenberg");
-var Volland = new player(9, "home", 100, canvas.width / 2 + 10, canvas.height / 2 + 10, 100, false, "#0047AB", "Volland");
-var Goretzka = new player(18, "home", 100, canvas.width / 2 + 10, canvas.height / 2 + 10, 100, false, "#0047AB", "Goretzka");
-var Trapp = new player(22, "home", 100, canvas.width / 2 + 10, canvas.height / 2 + 10, 100, false, "#0047AB", "Trapp");
-var Werner = new player(11, "home", 100, canvas.width / 2 + 10, canvas.height / 2 + 10, 100, false, "#0047AB", "Werner");
-var Patricio = new player(1, "guest", 100, 760, 270, 100, false, "#FF0000", "Patricio");
-var Semedo = new player(2, "guest", 100, 650, 75, 100, false, "#FF0000", "Semedo");
-var Pepe = new player(3, "guest", 100, 625, 270, 100, false, "#FF0000", "Pepe");
-var Dias = new player(4, "guest", 100, 630, 425, 100, false, "#FF0000", "Dias");
-var Guerreiro = new player(5, "guest", 100, 480, 90, 100, false, "#FF0000", "Guerreiro");
-var Pereira = new player(13, "guest", 100, 390, 405, 100, false, "#FF0000", "Pereira");
-var Silva = new player(10, "guest", 100, 315, 85, 100, false, "#FF0000", "Silva");
-var Fernandes = new player(11, "guest", 100, 250, 260, 100, false, "#FF0000", "Fernandes");
-var Carvalho = new player(14, "guest", 100, 480, 280, 100, false, "#FF0000", "Carvalho");
-var Jota = new player(21, "guest", 100, 140, 130, 100, false, "#FF0000", "Jota");
-var Ronaldo = new player(7, "guest", 100, 140, 380, 100, false, "#FF0000", "Ronaldo");
-var Goncalves = new player(19, "guest", 100, 140, 380, 100, false, "#FF0000", "Goncalves");
-var Lopes = new player(12, "guest", 100, 140, 380, 100, false, "#FF0000", "Lopes");
-var Dalot = new player(20, "guest", 100, 140, 380, 100, false, "#FF0000", "Dalot");
-var Sanches = new player(16, "guest", 100, 140, 380, 100, false, "#FF0000", "Sanches");
-var Neves = new player(18, "guest", 100, 140, 380, 100, false, "#FF0000", "Neves");
+let field = new pitch();
+let playball = new ball();
+let Neuer = new player(1, "home", 150, 40, canvas.height/2, 100, false, "#0047AB", "Neuer");
+let Ruediger = new player(2, "home", 150, 190, 260, 100, false, "#0047AB", "Ruediger");
+let Hummels = new player(5, "home", 150, 260, 60, 100, false, "#0047AB", "Hummels");
+let Ginter = new player(4, "home", 150, 285, 250, 100, false, "#0047AB", "Ginter");
+let Gosens = new player(20, "home", 150, 280, 440, 100, false, "#0047AB", "Gosens");
+let Kroos = new player(8, "home", 150, 500, 120, 100, false, "#0047AB", "Kroos");
+let Guendogan = new player(21, "home", 150, 530, 460, 100, false, "#0047AB", "Guendogan");
+let Kimmich = new player(6, "home", 150, 660, 85, 100, false, "#0047AB", "Kimmich");
+let Harvertz = new player(7, "home", 150, 610, 260, 100, false, "#0047AB", "Harvertz");
+let Mueller = new player(25, "home", 150, 710, 180, 100, false, "#0047AB", "Mueller");
+let Gnabry = new player(10, "home", 150, canvas.width / 2 + 10, canvas.height / 2 + 10, 100, false, "#0047AB", "Gnabry");
+let Halstenberg = new player(3, "home", 100, canvas.width / 2 + 10, canvas.height / 2 + 10, 100, false, "#0047AB", "Halstenberg");
+let Volland = new player(9, "home", 100, canvas.width / 2 + 10, canvas.height / 2 + 10, 100, false, "#0047AB", "Volland");
+let Goretzka = new player(18, "home", 100, canvas.width / 2 + 10, canvas.height / 2 + 10, 100, false, "#0047AB", "Goretzka");
+let Trapp = new player(22, "home", 100, canvas.width / 2 + 10, canvas.height / 2 + 10, 100, false, "#0047AB", "Trapp");
+let Werner = new player(11, "home", 100, canvas.width / 2 + 10, canvas.height / 2 + 10, 100, false, "#0047AB", "Werner");
+let Patricio = new player(1, "guest", 100, 760, 270, 100, false, "#FF0000", "Patricio");
+let Semedo = new player(2, "guest", 100, 650, 75, 100, false, "#FF0000", "Semedo");
+let Pepe = new player(3, "guest", 100, 625, 270, 100, false, "#FF0000", "Pepe");
+let Dias = new player(4, "guest", 100, 630, 425, 100, false, "#FF0000", "Dias");
+let Guerreiro = new player(5, "guest", 100, 480, 90, 100, false, "#FF0000", "Guerreiro");
+let Pereira = new player(13, "guest", 100, 390, 405, 100, false, "#FF0000", "Pereira");
+let Silva = new player(10, "guest", 100, 315, 85, 100, false, "#FF0000", "Silva");
+let Fernandes = new player(11, "guest", 100, 250, 260, 100, false, "#FF0000", "Fernandes");
+let Carvalho = new player(14, "guest", 100, 480, 280, 100, false, "#FF0000", "Carvalho");
+let Jota = new player(21, "guest", 100, 140, 130, 100, false, "#FF0000", "Jota");
+let Ronaldo = new player(7, "guest", 100, 140, 380, 100, false, "#FF0000", "Ronaldo");
+let Goncalves = new player(19, "guest", 100, 140, 380, 100, false, "#FF0000", "Goncalves");
+let Lopes = new player(12, "guest", 100, 140, 380, 100, false, "#FF0000", "Lopes");
+let Dalot = new player(20, "guest", 100, 140, 380, 100, false, "#FF0000", "Dalot");
+let Sanches = new player(16, "guest", 100, 140, 380, 100, false, "#FF0000", "Sanches");
+let Neves = new player(18, "guest", 100, 140, 380, 100, false, "#FF0000", "Neves");
 
-var assistantTop = new assistant(100, canvas.width / 2, 0.5);
-var assistantBot = new assistant(100, canvas.width / 2, canvas.height-0.5);
-var ref = new referee(80, canvas.width/20 + 80, canvas.height/2 + 80);
+let assistantTop = new assistant(100, canvas.width / 2, 0.5);
+let assistantBot = new assistant(100, canvas.width / 2, canvas.height-0.5);
+let ref = new referee(80, canvas.width/20 + 80, canvas.height/2 + 80);
 
-var activePlayers = [Neuer, Ruediger, Hummels, Ginter, Gosens, Kroos, Guendogan, Kimmich, Harvertz, Mueller, Gnabry, Patricio, Semedo, Pepe, Dias, Guerreiro, Pereira, Silva, Fernandes, Carvalho, Jota, Ronaldo];
-var activeH = [Neuer, Ruediger, Hummels, Ginter, Gosens, Kroos, Guendogan, Kimmich, Harvertz, Mueller, Gnabry];
-var activeG = [Patricio, Semedo, Pepe, Dias, Guerreiro, Pereira, Silva, Fernandes, Carvalho, Jota, Ronaldo];
-var substitutesH = [Halstenberg, Volland, Goretzka, Trapp, Werner];
-var substitutesG = [Goncalves, Lopes, Dalot, Sanches, Neves];
+let activePlayers = [Neuer, Ruediger, Hummels, Ginter, Gosens, Kroos, Guendogan, Kimmich, Harvertz, Mueller, Gnabry, Patricio, Semedo, Pepe, Dias, Guerreiro, Pereira, Silva, Fernandes, Carvalho, Jota, Ronaldo];
+let activeH = [Neuer, Ruediger, Hummels, Ginter, Gosens, Kroos, Guendogan, Kimmich, Harvertz, Mueller, Gnabry];
+let activeG = [Patricio, Semedo, Pepe, Dias, Guerreiro, Pereira, Silva, Fernandes, Carvalho, Jota, Ronaldo];
+let substitutesH = [Halstenberg, Volland, Goretzka, Trapp, Werner];
+let substitutesG = [Goncalves, Lopes, Dalot, Sanches, Neves];
 
 function assistantMovement(assistant) {
   if(assistant.x > playball.x){
@@ -530,9 +552,9 @@ function refereeMovement(ref) {
 }
 
 function fillActiveHome() {
-  for (var i = 0; i < activeH.length; i++) {
-    var hplayer = activeH[i].name;
-    var el = document.createElement("option");
+  for (let i = 0; i < activeH.length; i++) {
+    let hplayer = activeH[i].name;
+    let el = document.createElement("option");
     el.textContent = hplayer;
     el.value = hplayer;
     homePlayerSelect.appendChild(el);
@@ -541,9 +563,9 @@ function fillActiveHome() {
 
 
 function fillActiveGuest() {
-  for (var i = 0; i < activeG.length; i++) {
-    var gplayer = activeG[i].name;
-    var el = document.createElement("option");
+  for (let i = 0; i < activeG.length; i++) {
+    let gplayer = activeG[i].name;
+    let el = document.createElement("option");
     el.textContent = gplayer;
     el.value = gplayer;
     guestPlayerSelect.appendChild(el);
@@ -552,9 +574,9 @@ function fillActiveGuest() {
 
 
 function fillSubHome() {
-  for (var i = 0; i < substitutesH.length; i++) {
-    var shplayer = substitutesH[i].name;
-    var el = document.createElement("option");
+  for (let i = 0; i < substitutesH.length; i++) {
+    let shplayer = substitutesH[i].name;
+    let el = document.createElement("option");
     el.textContent = shplayer;
     el.value = shplayer;
     subListH.appendChild(el);
@@ -563,9 +585,9 @@ function fillSubHome() {
 
 
 function fillSubGuest() {
-  for (var i = 0; i < substitutesG.length; i++) {
-    var sgplayer = substitutesG[i].name;
-    var el = document.createElement("option");
+  for (let i = 0; i < substitutesG.length; i++) {
+    let sgplayer = substitutesG[i].name;
+    let el = document.createElement("option");
     el.textContent = sgplayer;
     el.value = sgplayer;
     subListG.appendChild(el);
@@ -605,12 +627,12 @@ function refereeAnimation() {
 }
 
 function playerAnimation() {
-  for (var i = 0; i < activeH.length; i++) {
+  for (let i = 0; i < activeH.length; i++) {
     if (playerMovement(activeH[i])) {
       return;
     }
   };
-  for (var i = 0; i < activeG.length; i++) {
+  for (let i = 0; i < activeG.length; i++) {
     if (playerMovement(activeG[i])) {
       return;
     }
@@ -632,15 +654,15 @@ function reset() {
 }
 
 function distanceToBall(player, ball) {
-  var distance = Math.sqrt((ball.x - player.x) ** 2 + (ball.y - player.y) ** 2);
+  let distance = Math.sqrt((ball.x - player.x) ** 2 + (ball.y - player.y) ** 2);
   return distance;
 }
 
 
 function playerMovement(player) {
-  var distance = Math.sqrt((playball.x - player.x) ** 2 + (playball.y - player.y) ** 2);
+  let distance = Math.sqrt((playball.x - player.x) ** 2 + (playball.y - player.y) ** 2);
   if (distance <= 240) {
-    var vector = [((playball.x - player.x) / distance), ((playball.y - player.y) / distance)];
+    let vector = [((playball.x - player.x) / distance), ((playball.y - player.y) / distance)];
     player.x += vector[0] * (player.speed/100);
     player.y += vector[1] * (player.speed/100);
     if (distance <= 2) {
@@ -650,9 +672,9 @@ function playerMovement(player) {
       return true;
     }
   } else {
-    var distance = Math.sqrt((player.startingX - player.x) ** 2 + (player.startingY - player.y) ** 2);
+    let distance = Math.sqrt((player.startingX - player.x) ** 2 + (player.startingY - player.y) ** 2);
     if (distance >= 2) {
-      var vector = [((player.startingX - player.x) / distance), ((player.startingY - player.y) / distance)];
+      let vector = [((player.startingX - player.x) / distance), ((player.startingY - player.y) / distance)];
       player.x += vector[0] * (player.speed/100);
       player.y += vector[1] * (player.speed/100);
     }
@@ -660,27 +682,27 @@ function playerMovement(player) {
 }
 
 function ballAnimation() {
-  for (var i = 0; i < activeH.length; i++) {
+  for (let i = 0; i < activeH.length; i++) {
     if (activeH[i].possession == true) {
       if(!deviatedBool){
         deviatedPos = ballDeviation(activeH[i], mousePos);
         deviatedBool = true;        
       }
 
-      if (ballMovement(activeH[i], deviatedPos)) {
+      if (ballMovement(activeH[i])) {
         return;
       }
 
     }
   };
 
-  for (var i = 0; i < activeG.length; i++) {
+  for (let i = 0; i < activeG.length; i++) {
     if (activeG[i].possession == true) {
       if(!deviatedBool){
         deviatedPos = ballDeviation(activeG[i], mousePos);
         deviatedBool = true;        
       }
-      if (ballMovement(activeG[i], deviatedPos)) {
+      if (ballMovement(activeG[i])) {
         return;
       }
 
@@ -692,20 +714,23 @@ function ballAnimation() {
 
 
 function ballMovement(player) {
-  var distance = Math.sqrt((deviatedPos[0] - playball.x) ** 2 + (deviatedPos[1] - playball.y) ** 2);
-  var vector = [((deviatedPos[0] - playball.x) / distance), ((deviatedPos[1] - playball.y) / distance)];
+  let distance: number = Math.sqrt((deviatedPos[0] - playball.x) ** 2 + (deviatedPos[1] - playball.y) ** 2);
+  let vector = [((deviatedPos[0] - playball.x) / distance), ((deviatedPos[1] - playball.y) / distance)];
+  console.log(vector);
+  let bool1: boolean  = (canvas.height / 2) - 21 >= playball.y;
+  let bool2: boolean = playball.y <= (canvas.height / 2) + 21;
   playball.x += vector[0] * (0.1 + distance / 40);
   playball.y += vector[1] * (0.1 + distance / 40);
   redraw();
 
-   if(playball.x < 1 && (canvas.height / 2) - 21 >= playball.y <= (canvas.height / 2) + 21 && !goalScored){
+   if(playball.x < 1 && bool1 && bool2 && !goalScored){
     goalsGuest++;
-    document.getElementById("guestGoals").innerHTML = goalsGuest;
+    document.getElementById("guestGoals").innerHTML = "" + goalsGuest;
     reset();
     return true;
-  } else if(playball.x > canvas.width - 1 && (canvas.height / 2) - 21 >= playball.y <= (canvas.height / 2) + 21 && !goalScored){
+  } else if(playball.x > canvas.width - 1 &&  bool1 && bool2 && !goalScored){
     goalsHome++;
-    document.getElementById("homeGoals").innerHTML = goalsHome;
+    document.getElementById("homeGoals").innerHTML = "" + goalsHome;
     reset();
     return true;
   }
@@ -718,7 +743,7 @@ function ballMovement(player) {
 }
 
 function ballDeviation(player, mousePos){
-    var distance = Math.sqrt((mousePos[0]-playball.x)**2+(mousePos[1]-playball.y)**2),
+    let distance = Math.sqrt((mousePos[0]-playball.x)**2+(mousePos[1]-playball.y)**2),
     maxDeviation = (distance / 1.5) * (1-player.accuracy/100),
     posXrange = [mousePos[0] - maxDeviation/2, mousePos[0] + maxDeviation/2],
     posYrange = [mousePos[1] - maxDeviation/2, mousePos[1] + maxDeviation/2],
