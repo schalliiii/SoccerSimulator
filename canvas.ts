@@ -449,7 +449,7 @@ class referee {
 
   draw(ctx): void {
     ctx.beginPath();
-    ctx.strokeStyle = "#FFFF00";
+    ctx.strokeStyle = "#42f5e9";
     ctx.arc(this.x, this.y, 3, 0, 2 * Math.PI, false);
     ctx.arc(this.x, this.y, 3, 0, 2 * Math.PI, false);
     ctx.stroke();
@@ -473,7 +473,7 @@ class assistant {
 
   draw(ctx): void {
     ctx.beginPath();
-    ctx.strokeStyle = "#FFFF00";
+    ctx.strokeStyle = "#42f5e9";
     ctx.arc(this.x, this.y, 3, 0, 2 * Math.PI, false);
     ctx.arc(this.x, this.y, 3, 0, 2 * Math.PI, false);
     ctx.stroke();
