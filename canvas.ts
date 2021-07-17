@@ -611,7 +611,7 @@ function getMousePosition(canvas, event) {
 
 canvas.addEventListener("mousedown", function (e) {
   mousePos = getMousePosition(canvas, e);
-  ficken();
+  play();
 });
 
 function assistantAnimation() {
@@ -754,7 +754,7 @@ function ballDeviation(player, mousePos){
     return deviatedPos;
 }
 
-function ficken() {
+function play() {
   if (phase == 0) {
     playerAnimation();
     assistantAnimation();
