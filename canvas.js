@@ -25,10 +25,6 @@ var goalsHome = 0;
 var goalsGuest = 0;
 var goalScored = false;
 
-console.log(deviatedPos);
-
-
-
 
 formsH.style.display = "none";
 formsG.style.display = "none";
@@ -170,6 +166,7 @@ function redraw() {
   activePlayers.forEach(element => { element.draw(ctx); });
   assistantTop.draw(ctx);
   assistantBot.draw(ctx);
+  ref.draw(ctx);
 }
 
 function emptySelect(box) {
@@ -427,9 +424,19 @@ class ball {
 }
 
 class referee {
-  constructor(speed, startX, startY) {
+  constructor(speed, startingX, startingY) {
+    this.speed = speed;
     this.x = startingX;
     this.y = startingY;
+  }
+
+  draw(ctx){
+    ctx.beginPath();
+    ctx.strokeStyle = "#FFFF00";
+    ctx.arc(this.x, this.y, 3, 0, 2 * Math.PI, false);
+    ctx.arc(this.x, this.y, 3, 0, 2 * Math.PI, false);
+    ctx.stroke();
+    ctx.closePath();
   }
 }
 
@@ -440,8 +447,8 @@ class assistant {
     this.startingY = startingY;
     this.x = startingX;
     this.y = startingY;
-
   }
+
   draw(ctx){
     ctx.beginPath();
     ctx.strokeStyle = "#FFFF00";
@@ -489,6 +496,7 @@ var Neves = new player(18, "guest", 100, 140, 380, 100, false, "#FF0000", "Neves
 
 var assistantTop = new assistant(100, canvas.width / 2, 0.5);
 var assistantBot = new assistant(100, canvas.width / 2, canvas.height-0.5);
+var ref = new referee(80, canvas.width/20 + 80, canvas.height/2 + 80);
 
 var activePlayers = [Neuer, Ruediger, Hummels, Ginter, Gosens, Kroos, Guendogan, Kimmich, Harvertz, Mueller, Gnabry, Patricio, Semedo, Pepe, Dias, Guerreiro, Pereira, Silva, Fernandes, Carvalho, Jota, Ronaldo];
 var activeH = [Neuer, Ruediger, Hummels, Ginter, Gosens, Kroos, Guendogan, Kimmich, Harvertz, Mueller, Gnabry];
@@ -502,6 +510,22 @@ function assistantMovement(assistant) {
   }
   if(assistant.x < playball.x){
     assistant.x += assistant.speed / 100;
+  }
+}
+
+function refereeMovement(ref) {
+
+  if(ref.x > playball.x + 80){
+    ref.x -= ref.speed / 100;
+  }
+  if(ref.y > playball.y + 80){
+    ref.y -= ref.speed / 100;
+  }
+  if(ref.x < playball.x - 80){
+    ref.x += ref.speed / 100;
+  }
+  if(ref.y < playball.y - 80){
+    ref.y += ref.speed / 100;
   }
 }
 
@@ -573,6 +597,11 @@ function assistantAnimation() {
   assistantMovement(assistantBot);
   redraw();
   requestAnimationFrame(assistantAnimation);
+}
+function refereeAnimation() {
+  refereeMovement(ref);
+  redraw();
+  requestAnimationFrame(refereeAnimation);
 }
 
 function playerAnimation() {
@@ -704,6 +733,7 @@ function ficken() {
   if (phase == 0) {
     playerAnimation();
     assistantAnimation();
+    refereeAnimation();
     phase += 1;
   } else {
     ballAnimation();
@@ -720,6 +750,7 @@ function ficken() {
   activePlayers.forEach(element => { element.draw(ctx); });
   assistantTop.draw(ctx);
   assistantBot.draw(ctx);
+  ref.draw(ctx);
 
 })();
 

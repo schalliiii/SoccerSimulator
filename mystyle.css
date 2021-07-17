@@ -1,6 +1,11 @@
 #pitch {
     border: solid 10px #060;
-  }
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }  
 
   .playerButton{
     margin-bottom: 15px;
