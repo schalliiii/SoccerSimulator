@@ -114,6 +114,9 @@ function randomNumber(min, max) {
 function confirmAttributesH():void { 
   let speedMin = speedMinH.value; //selected speed value
   let speedMax = speedMaxH.value; //selected speed value
+  if(speedMin < 0){
+    speedMin = 0;
+  }
   let accuracyMax = accuracyMaxH.value; //selected accuracy value
   let accuracyMin = accuracyMinH.value; //selected accuracy value
   let homePlayer; 
@@ -132,6 +135,9 @@ function confirmAttributesH():void {
 function confirmAttributesG():void { //analog
   let speedMin = speedMinG.value; //selected speed value
   let speedMax = speedMaxG.value; //selected speed value
+  if(speedMin < 0){
+    speedMin = 0;
+  }
   let accuracyMin = accuracyMinG.value; //selected accuracy value
   let accuracyMax = accuracyMaxG.value; //selected accuracy value
   let accuracy = randomNumber(accuracyMin, accuracyMax); //calculate random number between min and max
