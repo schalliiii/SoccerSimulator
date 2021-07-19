@@ -28,7 +28,6 @@ let deviatedPos: Array<number>; // Coordinates with accuracy of player
 let goalsHome: number = 0; // variable counter for goals (used for scoreboard)
 let goalsGuest: number = 0; 
 let goalScored: boolean = false; // variable to decide if a goal is scored => rest player positions
-let canvasHeight: number = canvas.height;
 
 
 formsH.style.display = "none";
@@ -718,22 +717,23 @@ function ballAnimation(): void {
 function ballMovement(player): boolean { 
   let distance: number = Math.abs((deviatedPos[0] - playball.x) + (deviatedPos[1] - playball.y)); //check distance of ball to its desired position
   let vector = [((deviatedPos[0] - playball.x) / distance), ((deviatedPos[1] - playball.y) / distance)]; //calculate vector for movement
-  let bool1: boolean  = (canvas.height / 2) - 21 >= playball.y; //check if ball has crossed the goal line
+  let bool1: boolean  = (canvas.height / 2) - 21 <= playball.y; //check if ball has crossed the goal line
   let bool2: boolean = playball.y <= (canvas.height / 2) + 21;
-  let bool3: boolean = playball.y <= 1;
-  let bool4: boolean = playball.y >= canvas.height - 1;
+  let bool3: boolean = (canvas.height / 2) - 21 <= playball.y;
+  let bool4: boolean = playball.y <= (canvas.height / 2) + 21 ;
   playball.x += vector[0] * (0.1 + distance / 40); //calculate new position of ball
   playball.y += vector[1] * (0.1 + distance / 40);
   redraw();
 
 
 
-   if(playball.x < 1 && bool1 && bool2 && !goalScored){ //check for goal
-    goalsGuest++; //add a goal to guest score
-    document.getElementById("guestGoals").innerHTML = "" + goalsGuest; //update score
-    reset(); //players move back to their starting position
-    return true; //escape function
-  } else if(playball.x > canvas.width - 1 &&  bool3 && bool4 && !goalScored){ //analog
+
+  if(playball.x < 1 && bool1 && bool2 && !goalScored){
+    goalsGuest++;
+    document.getElementById("guestGoals").innerHTML = ""+ goalsGuest;
+    reset();
+    return true;
+  } else if(playball.x > canvas.width - 1 && bool3 && bool4 && !goalScored){
     goalsHome++;
     document.getElementById("homeGoals").innerHTML = "" + goalsHome;
     reset();
