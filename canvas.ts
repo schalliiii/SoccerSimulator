@@ -436,6 +436,12 @@ function cancelAttributesG(): void {
 function randomNumber(min, max) {
   let a = Math.floor(min);
   let b = Math.floor(max);
+  let c;
+  if(a > b){
+    c = b;
+    b = a;
+    a = c;
+  }
   return Math.floor(Math.random() * (b - a)) + a;
 }
 
