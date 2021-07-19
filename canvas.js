@@ -352,6 +352,12 @@ function cancelAttributesG() {
 function randomNumber(min, max) {
     var a = Math.floor(min);
     var b = Math.floor(max);
+    var c;
+    if (a > b) {
+        c = b;
+        b = a;
+        a = c;
+    }
     return Math.floor(Math.random() * (b - a)) + a;
 }
 function confirmAttributesH() {
@@ -362,6 +368,12 @@ function confirmAttributesH() {
     }
     var accuracyMax = accuracyMaxH.value; //selected accuracy value
     var accuracyMin = accuracyMinH.value; //selected accuracy value
+    if (accuracyMax > 100) {
+        accuracyMax = 100;
+    }
+    if (accuracyMin < 0) {
+        accuracyMin = 0;
+    }
     var homePlayer;
     var speed = randomNumber(speedMin, speedMax); //calculate random number between min and max
     var accuracy = randomNumber(accuracyMin, accuracyMax); //calculate random number between min and max
@@ -382,6 +394,12 @@ function confirmAttributesG() {
     }
     var accuracyMin = accuracyMinG.value; //selected accuracy value
     var accuracyMax = accuracyMaxG.value; //selected accuracy value
+    if (accuracyMax > 100) {
+        accuracyMax = 100;
+    }
+    if (accuracyMin < 0) {
+        accuracyMin = 0;
+    }
     var accuracy = randomNumber(accuracyMin, accuracyMax); //calculate random number between min and max
     var guestPlayer;
     var speed = randomNumber(speedMin, speedMax); //calculate random number between min and max
@@ -502,25 +520,26 @@ function emptySelect(box) {
     }
 }
 function assistantMovement(assistant) {
-    if (assistant.x > playball.x) {
-        assistant.x -= assistant.speed / 100;
+    if (assistant.x > playball.x) { //check wheter assistant is to the right of the ball
+        assistant.x -= assistant.speed / 100; // if so: move him to the left (towards the ball)
     }
-    if (assistant.x < playball.x) {
-        assistant.x += assistant.speed / 100;
+    if (assistant.x < playball.x) { //check wheter assistant is to the left of the ball
+        assistant.x += assistant.speed / 100; //if so: move him to the right (towards the ball)
     }
+    //no need to check for y coordinates -- assistants cant move up and down
 }
 function refereeMovement(ref) {
-    if (ref.x > playball.x + 80) {
-        ref.x -= ref.speed / 100;
+    if (ref.x > playball.x + 80) { //check wheter assistant is to the right of the ball
+        ref.x -= ref.speed / 100; // if so: move him to the left (towards the ball)
     }
-    if (ref.y > playball.y + 80) {
-        ref.y -= ref.speed / 100;
+    if (ref.y > playball.y + 80) { //check wheter the referee is beneath the ball
+        ref.y -= ref.speed / 100; //if so: move him up (towards the ball)
     }
-    if (ref.x < playball.x - 80) {
-        ref.x += ref.speed / 100;
+    if (ref.x < playball.x - 80) { //check wheter assistant is to the left of the ball
+        ref.x += ref.speed / 100; //if so: move him to the right (towards the ball)
     }
-    if (ref.y < playball.y - 80) {
-        ref.y += ref.speed / 100;
+    if (ref.y < playball.y - 80) { //check wheter the referee is above the ball
+        ref.y += ref.speed / 100; //if so: move him down (towards the ball)
     }
 }
 function getMousePosition(canvas, event) {
