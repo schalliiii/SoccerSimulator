@@ -453,6 +453,9 @@ function confirmAttributesH():void {
   }
   let accuracyMax = accuracyMaxH.value; //selected accuracy value
   let accuracyMin = accuracyMinH.value; //selected accuracy value
+  if(accuracyMax > 100){
+    accuracyMax = 100;
+  }
   let homePlayer; 
   let speed = randomNumber(speedMin, speedMax) //calculate random number between min and max
   let accuracy = randomNumber(accuracyMin, accuracyMax); //calculate random number between min and max
@@ -474,6 +477,9 @@ function confirmAttributesG():void { //analog
   }
   let accuracyMin = accuracyMinG.value; //selected accuracy value
   let accuracyMax = accuracyMaxG.value; //selected accuracy value
+  if(accuracyMax > 100){
+    accuracyMax = 100;
+  }
   let accuracy = randomNumber(accuracyMin, accuracyMax); //calculate random number between min and max
   let guestPlayer;
   let speed = randomNumber(speedMin, speedMax); //calculate random number between min and max
