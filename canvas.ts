@@ -700,28 +700,28 @@ function playerMovement(player): boolean { //moves players
 }
 
 function ballAnimation(): void { 
-  for (let i = 0; i < activeH.length; i++) { //check all players that are currently playing
+  for (let i = 0; i < activeH.length; i++) { //check all home players that are currently playing
     if (activeH[i].possession == true) { //check if the player we are looking at is in possession of the ball
       if(!deviatedBool){  // check if a goal was scored in the previous action -- if so: the deviatedPos variable has to be calculated again, because the players have changed positions and the possession will change
         deviatedPos = ballDeviation(activeH[i], mousePos); // calculate new deviatedPos
         deviatedBool = true;  //set variable to true, so the if condition will only be true when another goal gets scored
       }
 
-      if (ballMovement(activeH[i])) {  
-        return;
+      if (ballMovement(activeH[i])) {  //check if ball has reached the position it should go to
+        return;//exit the function to stop further animations
       }
 
     }
   };
 
-  for (let i = 0; i < activeG.length; i++) {
+  for (let i = 0; i < activeG.length; i++) { //same for away players
     if (activeG[i].possession == true) {
       if(!deviatedBool){
         deviatedPos = ballDeviation(activeG[i], mousePos);
         deviatedBool = true;        
       }
-      if (ballMovement(activeG[i])) { //check if ball has reached the position it should go to
-        return; //exit the function to stop further animations
+      if (ballMovement(activeG[i])) { 
+        return; 
       }
 
 
