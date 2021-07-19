@@ -614,27 +614,29 @@ function emptySelect(box):void { //empties a select box
 
 
 function assistantMovement(assistant): void { //updates position of assistant
-  if(assistant.x > playball.x){
-    assistant.x -= assistant.speed / 100;
+  if(assistant.x > playball.x){ //check wheter assistant is to the right of the ball
+    assistant.x -= assistant.speed / 100; // if so: move him to the left (towards the ball)
   }
-  if(assistant.x < playball.x){
-    assistant.x += assistant.speed / 100;
+  if(assistant.x < playball.x){ //check wheter assistant is to the left of the ball
+    assistant.x += assistant.speed / 100; //if so: move him to the right (towards the ball)
   }
+
+  //no need to check for y coordinates -- assistants cant move up and down
 }
 
 function refereeMovement(ref): void { //analog
 
-  if(ref.x > playball.x + 80){
-    ref.x -= ref.speed / 100;
+  if(ref.x > playball.x + 80){ //check wheter assistant is to the right of the ball
+    ref.x -= ref.speed / 100;// if so: move him to the left (towards the ball)
   }
-  if(ref.y > playball.y + 80){
-    ref.y -= ref.speed / 100;
+  if(ref.y > playball.y + 80){//check wheter the referee is beneath the ball
+    ref.y -= ref.speed / 100; //if so: move him up (towards the ball)
   }
-  if(ref.x < playball.x - 80){
-    ref.x += ref.speed / 100;
+  if(ref.x < playball.x - 80){//check wheter assistant is to the left of the ball
+    ref.x += ref.speed / 100;//if so: move him to the right (towards the ball)
   }
-  if(ref.y < playball.y - 80){
-    ref.y += ref.speed / 100;
+  if(ref.y < playball.y - 80){//check wheter the referee is above the ball
+    ref.y += ref.speed / 100;//if so: move him down (towards the ball)
   }
 }
 
