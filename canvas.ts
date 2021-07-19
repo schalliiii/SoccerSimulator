@@ -667,13 +667,13 @@ function refereeAnimation(): void { //analog
 }
 
 function playerAnimation(): void {
-  for (let i = 0; i < activePlayers.length; i++) {
-    if (playerMovement(activePlayers[i])) { //check if a player has reached the ball
-      return; //cancel movements
+  for (let i = 0; i < activePlayers.length; i++) { //checks every active player
+    if (playerMovement(activePlayers[i])) { //check if the player we are currently looking at has reached the ball
+      return; //if so: return to exit the function => cancels movements of all players -- note: here only the positions of the players are updated, they are not animated yet
     }
   };
-  redraw();
-  requestAnimationFrame(playerAnimation);
+  redraw(); //delete the whole picture and draw it new, this time with the elements at their new position
+  requestAnimationFrame(playerAnimation); //method tells the browser that we wish to perform an animation => this is where the animation happens
 }
 
 
@@ -700,14 +700,14 @@ function playerMovement(player): boolean { //moves players
 }
 
 function ballAnimation(): void { 
-  for (let i = 0; i < activeH.length; i++) { //check if any player has possession
-    if (activeH[i].possession == true) {
-      if(!deviatedBool){  // check if deviated pos is still set (goal scenario)
+  for (let i = 0; i < activeH.length; i++) { //check all players that are currently playing
+    if (activeH[i].possession == true) { //check if the player we are looking at is in possession of the ball
+      if(!deviatedBool){  // check if a goal was scored in the previous action -- if so: the deviatedPos variable has to be calculated again, because the players have changed positions and the possession will change
         deviatedPos = ballDeviation(activeH[i], mousePos); // calculate new deviatedPos
-        deviatedBool = true;  //set variable to true
+        deviatedBool = true;  //set variable to true, so the if condition will only be true when another goal gets scored
       }
 
-      if (ballMovement(activeH[i])) { 
+      if (ballMovement(activeH[i])) {  
         return;
       }
 
@@ -720,14 +720,14 @@ function ballAnimation(): void {
         deviatedPos = ballDeviation(activeG[i], mousePos);
         deviatedBool = true;        
       }
-      if (ballMovement(activeG[i])) { //check if goal was scored
-        return;
+      if (ballMovement(activeG[i])) { //check if ball has reached the position it should go to
+        return; //exit the function to stop further animations
       }
 
 
     };
   }
-  requestAnimationFrame(ballAnimation); //recursive call
+  requestAnimationFrame(ballAnimation); //recursive call -- does the actual animation
 }
 
 
