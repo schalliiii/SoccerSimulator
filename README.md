@@ -8,3 +8,4 @@ It is a little bit hard to get the ball into the left goal due to where the mous
 It is advised not to click too fast
 
 The App replicates the game between Germany and Portugal at the Euro 2020
+If minimal values entered by the user are bigger than the max values they are swapped
